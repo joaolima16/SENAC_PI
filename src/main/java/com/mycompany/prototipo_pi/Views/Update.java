@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -31,7 +29,8 @@ public class Update extends javax.swing.JFrame {
     }
 
     public Update(String cpf) {
-        showInformations("54462468880");
+        initComponents();
+        showInformations(cpf);
     }
 
     @SuppressWarnings("unchecked")
@@ -448,7 +447,7 @@ public class Update extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
     private boolean validarCampos() {
-          System.out.println(JtfCpf.getText().length());
+        System.out.println(JtfCpf.getText().length());
         if (JtfEmail.getText().equals("") || JtfCpf.getText().equals("")
                 || JtfTel.getText().equals("") || JtfNome.getText().equals("")
                 || JtfData.getText().equals("")) {
@@ -463,25 +462,21 @@ public class Update extends javax.swing.JFrame {
     }
 
     private void showInformations(String cpf) {
-        ResultSet rs = _userDao.findUser(cpf);
+        User user = _userDao.findUser(cpf);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            String data = sdf.format(rs.getDate(8));
-            JtfNome.setText(rs.getString(2));
-            JtfCpf.setText(rs.getString(3));
-            JtfEmail.setText(rs.getString(4));
-            JtfTel.setText(rs.getString(7));
-            JtfData.setText(data);
-            JtfCep.setText(rs.getString(9));
-            JtfBairro.setText(rs.getString(10));
-            JtfLogra.setText(rs.getString(11));
-            JtfCidade.setText(rs.getString(12));
-            JtfNumero.setText(rs.getString(13));
-            selectCheckbox(rs.getString(5), rs.getString(6));
-            this.cpf = rs.getString(3);
-        } catch (SQLException ex) {
-            throw new Error(ex);
-        }
+        String data = sdf.format(user.getDataNascimento());
+        JtfNome.setText(user.getNome());
+        JtfCpf.setText(user.getCpf());
+        JtfEmail.setText(user.getEmail());
+        JtfTel.setText(user.getTelefone());
+        JtfData.setText(data);
+        JtfCep.setText(user.getCep());
+        JtfBairro.setText(user.getBairro());
+        JtfLogra.setText(user.getLogradouro());
+        JtfCidade.setText(user.getCidade());
+        JtfNumero.setText(user.getNumero());
+        selectCheckbox(user.getSexo(), user.getEstadoCivil());
+        this.cpf = user.getCpf();
     }
 
     private boolean updateUser() {

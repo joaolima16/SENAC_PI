@@ -14,15 +14,15 @@ import javax.swing.text.PlainDocument;
 import javax.swing.JOptionPane;
 
 public class Register extends javax.swing.JFrame {
-
-    private String sexo;
+    
+    private String gender;
     private String estadoCivil;
     UserDAO _userDao = new UserDAO();
-
+    
     public Register() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -397,13 +397,16 @@ public class Register extends javax.swing.JFrame {
     private boolean validarCampos() {
         if (JtfEmail.getText().equals("") || JtfCpf.getText().equals("")
                 || JtfTel.getText().equals("") || JtfNome.getText().equals("")
-                || JtfData.getText().equals("")) {
+                || JtfData.getText().equals("") || JtfCidade.getText().equals("") || JtfLogra.getText().equals("")) 
+        {    
             JOptionPane.showMessageDialog(null, "Para realizar o cadastro preencha todos os campos");
-            return false;
-        } else if (JtfCpf.getText().length() < 11) {
+            return false;    
+        } 
+        else if (JtfCpf.getText().length() < 11) {
             JOptionPane.showMessageDialog(null, "O CPF Precisa ter 11 digitos");
             return false;
-        } else {
+        } 
+        else {
             return true;
         }
     }
@@ -418,7 +421,7 @@ public class Register extends javax.swing.JFrame {
                     super.insertString(fb, offset, string, attr);
                 }
             }
-
+            
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 if (!text.matches(".*\\d.*")) {
@@ -432,7 +435,7 @@ public class Register extends javax.swing.JFrame {
         JTextField textField = (JTextField) evt.getSource();
         String text = textField.getText();
         int limite = 60;
-
+        
         if (text.length() >= limite) {
             evt.consume();
         }
@@ -458,7 +461,7 @@ public class Register extends javax.swing.JFrame {
         if (text.length() >= limite) {
             evt.consume();
         }
-
+        
 
     }//GEN-LAST:event_JtfEmailKeyTyped
 
@@ -481,7 +484,7 @@ public class Register extends javax.swing.JFrame {
                     super.insertString(fb, offset, string, attr);
                 }
             }
-
+            
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 if (!text.matches(".*\\d.*")) {
@@ -501,7 +504,7 @@ public class Register extends javax.swing.JFrame {
                     super.insertString(fb, offset, string, attr);
                 }
             }
-
+            
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 if (!text.matches(".*\\d.*")) {
@@ -543,9 +546,9 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_JtfNumeroKeyTyped
     public void validarCheckBox() {
         if (JtbMasc.isSelected()) {
-            sexo = "M";
+            gender = "M";
         } else {
-            sexo = "F";
+            gender = "F";
         }
         if (JtbSolt.isSelected()) {
             estadoCivil = "solteiro";
@@ -553,14 +556,14 @@ public class Register extends javax.swing.JFrame {
             estadoCivil = "casado";
         }
     }
-
+    
     private void registerUser() {
         validarCheckBox();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date data = format.parse(JtfData.getText());
             User _user = new User(JtfNome.getText(), JtfCpf.getText().replaceAll("[^0-9]", ""), JtfTel.getText(), JtfEmail.getText(),
-                    data, sexo,
+                    data, gender,
                     JtfCep.getText().replaceAll("[^0-9]", ""),
                     JtfNumero.getText(),
                     JtfBairro.getText(),
@@ -571,9 +574,9 @@ public class Register extends javax.swing.JFrame {
         } catch (ParseException ex) {
             System.out.println(ex);
         }
-
+        
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

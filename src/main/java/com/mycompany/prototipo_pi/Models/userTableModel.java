@@ -49,7 +49,7 @@ public class userTableModel extends AbstractTableModel {
         this.fireTableDataChanged();
 
     }
-
+    
     public void deleteRow(String cpf, int row) {
         boolean deleteExists = _userDao.deleteUser(cpf);
         if (deleteExists == true) {

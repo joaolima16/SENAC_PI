@@ -7,14 +7,24 @@ public class Product {
     private double preco;
     private int tamanho;
     private int estoque;
-
+    
+    public Product(){
+    
+    
+    }
     public Product(String nomeProduto, double preco, int tamanho, int estoque) {
         this.nomeProduto = nomeProduto;
         this.preco = preco;
         this.tamanho = tamanho;
         this.estoque = estoque;
     }
-
+    public Product(int id, String nomeProduto, double preco, int tamanho, int estoque) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.preco = preco;
+        this.tamanho = tamanho;
+        this.estoque = estoque;
+    }
     public int getId() {
         return id;
     }

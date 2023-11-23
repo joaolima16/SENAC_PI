@@ -5,14 +5,13 @@ import com.mycompany.prototipo_pi.Models.User;
 import com.mycompany.prototipo_pi.Models.userTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class Clients extends javax.swing.JFrame {
 
-//    Products productForm = new Products();
     userTableModel _userTableModel = new userTableModel();
     UserDAO _userDao = new UserDAO();
-//    Venda buy = new Venda();
 
     public Clients() {
         initComponents();
@@ -208,26 +207,17 @@ public class Clients extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void fillTable() {
-        ResultSet rs = _userDao.findUsers();
-        try {
-            while (rs.next()) {
-                User _user = new User();
-                _user.setNome(rs.getString(2));
-                _user.setCpf(rs.getString(3));
-                _user.setEmail(rs.getString(4));
-                _user.setTelefone(rs.getString(5));
-                _user.setDataNascimento(rs.getDate(6));
-                _userTableModel.addRow(_user);
-            }
-        } catch (SQLException ex) {
-            throw new Error(ex);
+        List<User> lsUsers = _userDao.findUsers();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        for (User user : lsUsers) {
+            _userTableModel.addRow(user);
+
         }
     }
     private void jBtnExcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcActionPerformed
         if (jtUsuarios.getSelectedRow() != -1) {
             String cpf = _userTableModel.getValueAt(jtUsuarios.getSelectedRow(), 1).toString();
             _userTableModel.deleteRow(cpf, jtUsuarios.getSelectedRow());
-
         }
 
     }//GEN-LAST:event_jBtnExcActionPerformed
@@ -238,21 +228,22 @@ public class Clients extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnAddActionPerformed
 
     private void jBtnAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAltActionPerformed
-
-        Update updateUserForm = new Update("teste");
+        String cpf = _userTableModel.getValueAt(jtUsuarios.getSelectedRow(), 1).toString();
+        System.out.println(cpf);
+        Update updateUserForm = new Update(cpf);
         updateUserForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnAltActionPerformed
 
     private void btnProdutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutsActionPerformed
-        Products productsForm = new Products();
-        productsForm.setVisible(true);
+        Products productForm = new Products();
+        productForm.setVisible(true);
 
         this.dispose();
     }//GEN-LAST:event_btnProdutsActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        Venda vendasForm = new Venda();
+        Sales vendasForm = new Sales();
         vendasForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
@@ -268,21 +259,15 @@ public class Clients extends javax.swing.JFrame {
         ResultSet rs = _userDao.findUsersForNameOrCpf(JtfBusca.getText());
         clearTable();
         try {
-            if (rs.next() == false) {
-                JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum cliente com essas informações");
-                fillTable();
-            } else {
-                while (rs.next()) {
-                    User _user = new User();
-                    _user.setNome(rs.getString(2));
-                    _user.setCpf(rs.getString(3));
-                    _user.setEmail(rs.getString(4));
-                    _user.setTelefone(rs.getString(5));
-                    _user.setDataNascimento(rs.getDate(6));
-                    _userTableModel.addRow(_user);
-                }
+            while (rs.next()) {
+                User _user = new User();
+                _user.setNome(rs.getString(2));
+                _user.setCpf(rs.getString(3));
+                _user.setEmail(rs.getString(4));
+                _user.setTelefone(rs.getString(5));
+                _user.setDataNascimento(rs.getDate(6));
+                _userTableModel.addRow(_user);
             }
-
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -306,16 +291,24 @@ public class Clients extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clients.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clients.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clients.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clients.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

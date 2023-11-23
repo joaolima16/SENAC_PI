@@ -11,6 +11,7 @@ public class productTableModel extends AbstractTableModel {
     private List<Product> products = new ArrayList<>();
     private String[] columns = {"Id", "Nome", "Preço", "Tamanho", "Estoque"};
     ProductsDAO _productDao = new ProductsDAO();
+
     @Override
     public String getColumnName(int column) {
         return columns[column];
@@ -28,27 +29,27 @@ public class productTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object valor, int linha, int coluna) {
-         switch (coluna) {
+        switch (coluna) {
             case 0:
-                 products.get(linha).setId(Integer.parseInt((String)valor));
-                 break;
+                products.get(linha).setId(Integer.parseInt((String) valor));
+                break;
             case 1:
-                 products.get(linha).setNomeProduto((String) valor);
-                 break;
+                products.get(linha).setNomeProduto((String) valor);
+                break;
             case 2:
-                 products.get(linha).setPreco(Double.parseDouble((String)valor));
-                 break;
+                products.get(linha).setPreco(Double.parseDouble((String) valor));
+                break;
             case 3:
-                 products.get(linha).setTamanho(Integer.parseInt((String) valor));
-                 break;
+                products.get(linha).setTamanho(Integer.parseInt((String) valor));
+                break;
             case 4:
                 products.get(linha).setEstoque(Integer.parseInt((String) valor));
                 break;
         }
-         _productDao.updateProduct(products.get(linha));
-         this.fireTableRowsUpdated(linha, linha);
+        _productDao.updateProduct(products.get(linha));
+        this.fireTableRowsUpdated(linha, linha);
     }
-    
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
@@ -72,11 +73,15 @@ public class productTableModel extends AbstractTableModel {
 
     }
 
+    public void deleteRow(int id, int row) {
+        boolean deleteExists = _productDao.deleteProduct(id);
+        if (deleteExists == true) {
+            removeRow(row);
+        }
+    }
+
     public void removeRow(int row) {
         this.products.remove(row);
-        System.out.println(products.get(row).getId());
-        _productDao.deleteProduct(products.get(row).getId());
         this.fireTableRowsDeleted(row, row);
-        JOptionPane.showMessageDialog(null, "Produto deletado");
     }
 }

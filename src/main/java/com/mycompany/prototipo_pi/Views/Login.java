@@ -4,7 +4,7 @@ import com.mycompany.prototipo_pi.DAO.UserDAO;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-    Venda homeForm = new Venda();
+    Sales homeForm = new Sales();
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);

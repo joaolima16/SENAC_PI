@@ -3,6 +3,7 @@ package com.mycompany.prototipo_pi.Models;
 import java.util.Date;
 
 public class User {
+    private int id;
 
     private String nome;
     private String cpf;
@@ -35,7 +36,14 @@ public class User {
     public User() {
 
     }
+    
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getSexo() {
         return sexo;
     }

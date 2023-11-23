@@ -2,13 +2,9 @@ package com.mycompany.prototipo_pi.Views;
 
 import com.mycompany.prototipo_pi.DAO.ProductsDAO;
 import com.mycompany.prototipo_pi.Models.Product;
-import com.mycompany.prototipo_pi.Models.User;
 import com.mycompany.prototipo_pi.Models.productTableModel;
 import java.awt.event.KeyEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
@@ -20,7 +16,8 @@ import javax.swing.text.PlainDocument;
 public class Products extends javax.swing.JFrame {
 
     Clients clients = new Clients();
-    Venda _venda = new Venda();
+    Sales _venda = new Sales();
+    List<Product> lsProducts;
     ProductsDAO _productDao = new ProductsDAO();
     productTableModel _productTableModel = new productTableModel();
 
@@ -322,29 +319,7 @@ public class Products extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public boolean validarCampos() {
-        if (JtfNome.getText().equals("") || JtfPreco.getText().equals("") || JtfEstoque.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Para realizar o cadastro preencha todos os campos");
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    private void fillTable() {
-        try {
-            ResultSet rs;
-            rs = _productDao.getProducts();
-            while (rs.next()) {
-                Product _product = new Product(rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getInt(5));
-                _product.setId(rs.getInt(1));
-                _productTableModel.addRow(_product);
-            }
-        } catch (SQLException ex) {
-
-        }
-
-    }
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
         boolean validacao = validarCampos();
         if (validacao == true) {
@@ -354,17 +329,10 @@ public class Products extends javax.swing.JFrame {
             _productTableModel.addRow(produto);
             registerProduct(produto);
         }
-
-
     }//GEN-LAST:event_jbtAddActionPerformed
-    private void registerProduct(Product product) {
-        _productDao.insertProduct(product);
-    }
-    private void jtbExcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbExcActionPerformed
-        if (jtProdutos.getSelectedRow() != -1) {
-            _productTableModel.removeRow(jtProdutos.getSelectedRow());
 
-        }
+    private void jtbExcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbExcActionPerformed
+        deleteProduct();
     }//GEN-LAST:event_jtbExcActionPerformed
 
     private void JtfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtfNomeKeyTyped
@@ -458,6 +426,19 @@ public class Products extends javax.swing.JFrame {
         _venda.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
+
+    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
+        filterProducts();
+    }//GEN-LAST:event_btnPesquisaActionPerformed
+    private void filterProducts() {
+        lsProducts.clear();
+        lsProducts = _productDao.findProductsByName(JtfBusca.getText());
+        clearTable();
+        for(Product product: lsProducts){
+            _productTableModel.addRow(product);
+        }
+    }
+
     private void clearTable() {
         int rowCount = _productTableModel.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
@@ -465,33 +446,35 @@ public class Products extends javax.swing.JFrame {
         }
     }
 
-    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        ResultSet rs = _productDao.findProductsByName(JtfBusca.getText());
-        clearTable();
-        try {
-            if (rs.next() == false) {
-                JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum cliente com essas informações");
-                fillTable();
-            } else {
-                while (rs.next()) {
-                    User _user = new User();
-                    _user.setNome(rs.getString(2));
-                    _user.setCpf(rs.getString(3));
-                    _user.setEmail(rs.getString(4));
-                    _user.setTelefone(rs.getString(5));
-                    _user.setDataNascimento(rs.getDate(6));
-                    _userTableModel.addRow(_user);
-                }
-            }
-    }//GEN-LAST:event_btnPesquisaActionPerformed
+    private void registerProduct(Product product) {
+        _productDao.insertProduct(product);
+    }
 
-    
+    private boolean validarCampos() {
+        if (JtfNome.getText().equals("") || JtfPreco.getText().equals("") || JtfEstoque.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Para realizar o cadastro preencha todos os campos");
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-    
+    private void fillTable() {
 
-    
+        lsProducts = _productDao.getProducts();
+        for (Product product : lsProducts) {
+            _productTableModel.addRow(product);
+        }
 
-    
+    }
+
+    private void deleteProduct() {
+        if (jtProdutos.getSelectedRow() != -1) {
+            int id = Integer.parseInt(_productTableModel.getValueAt(jtProdutos.getSelectedRow(), 0).toString());
+            _productTableModel.deleteRow(id, jtProdutos.getSelectedRow());
+
+        }
+    }
 
     public static void main(String args[]) {
 
