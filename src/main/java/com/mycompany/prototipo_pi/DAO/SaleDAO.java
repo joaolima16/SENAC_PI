@@ -21,7 +21,11 @@ public class SaleDAO {
         PreparedStatement stmt = null;
         ResultSet rs;
         List<Sale> lsSales = new ArrayList<>();
-        String sql = "SELECT * FROM venda WHERE data_venda BETWEEN ? AND ?";
+
+        String sql = "SELECT v.id_venda, v.data_venda, valor_venda, c.cpf FROM venda AS v INNER JOIN cliente AS c "
+                + "ON v.id_cliente = c.id "
+                + "WHERE v.data_venda BETWEEN ? AND ?";
+
         try {
             stmt = ConnectionDB.connDB().prepareStatement(sql);
             stmt.setDate(1, new java.sql.Date(dtInitial.getTime()));
@@ -32,7 +36,7 @@ public class SaleDAO {
                 _sale.setId_venda(rs.getInt(1));
                 _sale.setData_venda(rs.getDate(2));
                 _sale.setValor_venda(rs.getDouble(3));
-                _sale.setId_cliente(rs.getInt(4));
+                _sale.setCpf(rs.getString(4));
                 lsSales.add(_sale);
 
             }
@@ -80,6 +84,32 @@ public class SaleDAO {
             }
         }
         return true;
+    }
+
+    public List<Product> getSaleProduct(int id_venda) {
+        PreparedStatement stmt = null;
+        ResultSet rs;
+        List<Product> lsProducts = new ArrayList<>();
+        String sql = "SELECT p.nome_produto, p.preco_unitario, v.qtd_produto "
+           + "FROM item_venda AS v INNER JOIN produto AS p " // Adicionei espaços após p e antes de ON e WHERE
+           + "ON v.id_produto = p.id "
+           + "WHERE id_venda = ?";
+        try {
+            stmt = ConnectionDB.connDB().prepareStatement(sql);
+            stmt.setInt(1, id_venda);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Product _product = new Product();
+                _product.setNomeProduto(rs.getString(1));
+                _product.setPreco(rs.getDouble(2));
+                _product.setEstoque(rs.getInt(3));
+                lsProducts.add(_product);
+            }
+            return lsProducts;
+        } catch (SQLException ex) {
+            throw new Error(ex);
+        }
+
     }
 
     public boolean registerItensSale(List<Product> lsProducts, int idSale) {;

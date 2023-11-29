@@ -54,6 +54,14 @@ public class ProductsDAO {
             return _product;
         } catch (SQLException ex) {
             throw new Error(ex);
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                throw new Error(ex);
+            }
         }
     }
 
@@ -96,6 +104,14 @@ public class ProductsDAO {
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new Error(ex);
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                throw new Error(ex);
+            }
         }
     }
 
@@ -109,6 +125,14 @@ public class ProductsDAO {
             return true;
         } catch (SQLException ex) {
             throw new Error(ex);
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                throw new Error(ex);
+            }
         }
     }
 
@@ -156,6 +180,14 @@ public class ProductsDAO {
                     stmt.executeUpdate();
                 } catch (SQLException ex) {
                     throw new Error(ex);
+                } finally {
+                    try {
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                    } catch (SQLException ex) {
+                        throw new Error(ex);
+                    }
                 }
             }
 

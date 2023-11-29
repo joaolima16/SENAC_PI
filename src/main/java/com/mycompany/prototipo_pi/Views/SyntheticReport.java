@@ -1,20 +1,20 @@
-
 package com.mycompany.prototipo_pi.Views;
 
 import com.mycompany.prototipo_pi.DAO.SaleDAO;
 import com.mycompany.prototipo_pi.Models.Sale;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Relatory extends javax.swing.JFrame {
+public class SyntheticReport extends javax.swing.JFrame {
+
     DefaultTableModel defaultModel = new DefaultTableModel();
     List<Sale> lsSales = new ArrayList<>();
     SaleDAO _saleDao = new SaleDAO();
-    
-    public Relatory() {
+
+    public SyntheticReport() {
         initComponents();
         configureTable();
     }
@@ -29,16 +29,17 @@ public class Relatory extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        JlSales = new javax.swing.JLabel();
+        JlClient = new javax.swing.JLabel();
+        JlProduct = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JtSales = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        JbtnDetails = new javax.swing.JButton();
         JdInicio = new com.toedter.calendar.JDateChooser();
         JdEnd = new com.toedter.calendar.JDateChooser();
+        JbnSearch = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -98,30 +99,35 @@ public class Relatory extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel16.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Vendas");
-        jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel17.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Clientes");
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        JlSales.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
+        JlSales.setForeground(new java.awt.Color(255, 255, 255));
+        JlSales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JlSales.setText("Vendas");
+        JlSales.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        JlSales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
+                JlSalesMouseClicked(evt);
             }
         });
 
-        jLabel18.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Produtos");
-        jLabel18.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+        JlClient.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
+        JlClient.setForeground(new java.awt.Color(255, 255, 255));
+        JlClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JlClient.setText("Clientes");
+        JlClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel18mouseClicked(evt);
+                JlClientMouseClicked(evt);
+            }
+        });
+
+        JlProduct.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
+        JlProduct.setForeground(new java.awt.Color(255, 255, 255));
+        JlProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JlProduct.setText("Produtos");
+        JlProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        JlProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JlProductmouseClicked(evt);
             }
         });
 
@@ -130,11 +136,11 @@ public class Relatory extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JlProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JlClient, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JlSales, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(442, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -142,9 +148,9 @@ public class Relatory extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel17))
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(JlSales, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JlClient))
+                    .addComponent(JlProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
@@ -161,14 +167,31 @@ public class Relatory extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JtSales);
 
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Data Inicial");
 
+        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Data final");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        JbtnDetails.setBackground(new java.awt.Color(0, 0, 0));
+        JbtnDetails.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        JbtnDetails.setForeground(new java.awt.Color(255, 255, 255));
+        JbtnDetails.setText("Detalhes");
+        JbtnDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                JbtnDetailsActionPerformed(evt);
+            }
+        });
+
+        JbnSearch.setBackground(new java.awt.Color(0, 0, 0));
+        JbnSearch.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
+        JbnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        JbnSearch.setText("Buscar");
+        JbnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JbnSearchActionPerformed(evt);
             }
         });
 
@@ -179,35 +202,41 @@ public class Relatory extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(JdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(JdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JbnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JbtnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(17, 17, 17)
-                        .addComponent(JdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JdEnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(JdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(JbtnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JbnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -226,56 +255,89 @@ public class Relatory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void populateTable(){
+    private void populateTable() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        for(Sale sale: lsSales){
-           int id_venda = sale.getId_venda();
-           String data = sdf.format(sale.getData_venda());
-           
-        
+        clearTable();
+
+        if (lsSales.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nenhum dado encontrado!");
         }
-    
-    
+        for (Sale sale : lsSales) {
+            String id_sale = String.valueOf(sale.getId_venda());
+            String data = sdf.format(sale.getData_venda());
+            String value_sale = String.valueOf(sale.getValor_venda());
+            String cpf_client = sale.getCpf();
+
+            defaultModel.addRow(new String[]{
+                id_sale,
+                data,
+                value_sale,
+                cpf_client
+
+            });
+
+        }
+
     }
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         Clients clientForm = new Clients();
         clientForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel15MouseClicked
+    private void clearTable() {
+        while (defaultModel.getRowCount() > 0) {
+            defaultModel.removeRow(0);
+        }
 
+    }
     private void jLabel14mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14mouseClicked
         Products productForm = new Products();
         productForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel14mouseClicked
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+    private void JlClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlClientMouseClicked
         Clients clientForm = new Clients();
         clientForm.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLabel17MouseClicked
+    }//GEN-LAST:event_JlClientMouseClicked
 
-    private void jLabel18mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18mouseClicked
+    private void JlProductmouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlProductmouseClicked
+        Products productsForm = new Products();
+        productsForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_JlProductmouseClicked
+
+    private void JbtnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnDetailsActionPerformed
+        if (JtSales.getSelectedRow() != -1) {
+            int id_sale = Integer.parseInt(defaultModel.getValueAt(JtSales.getSelectedRow(), 0).toString());
+            AnalyticalReport report = new AnalyticalReport(id_sale);
+            report.setVisible(true);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_JbtnDetailsActionPerformed
+
+    private void JbnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbnSearchActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        lsSales.clear();
+        lsSales = _saleDao.getSales(JdInicio.getDate(), JdEnd.getDate());
+        populateTable();
+    }//GEN-LAST:event_JbnSearchActionPerformed
+
+    private void JlSalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlSalesMouseClicked
         Sales vendaForm = new Sales();
         vendaForm.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLabel18mouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-      Date dt1 = JdInicio.getDate();
-      System.out.println(sdf.format(dt1));
-      lsSales = _saleDao.getSales(JdInicio.getDate(), JdEnd.getDate());  
-      populateTable();
-      
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_JlSalesMouseClicked
     private void configureTable() {
         defaultModel.addColumn("Id_venda");
         defaultModel.addColumn("data_venda");
         defaultModel.addColumn("valor_venda");
-        defaultModel.addColumn("id_cliente");
+        defaultModel.addColumn("Cpf_cliente");
         JtSales.setModel(defaultModel);
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -290,36 +352,38 @@ public class Relatory extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Relatory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SyntheticReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Relatory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SyntheticReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Relatory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SyntheticReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Relatory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SyntheticReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Relatory().setVisible(true);
+                new SyntheticReport().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JbnSearch;
+    private javax.swing.JButton JbtnDetails;
     private com.toedter.calendar.JDateChooser JdEnd;
     private com.toedter.calendar.JDateChooser JdInicio;
+    private javax.swing.JLabel JlClient;
+    private javax.swing.JLabel JlProduct;
+    private javax.swing.JLabel JlSales;
     private javax.swing.JTable JtSales;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

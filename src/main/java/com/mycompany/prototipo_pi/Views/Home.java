@@ -2,10 +2,10 @@ package com.mycompany.prototipo_pi.Views;
 
 public class Home extends javax.swing.JFrame {
 
-//   Products prod = new Products();
    Clients cli = new Clients();
    Sales vender = new Sales();
-    public Home() {
+   
+   public Home() {
         initComponents();
     }
 
@@ -169,8 +169,8 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        Sales vendaForm = new Sales();
-        vendaForm.setVisible(true);
+        Sales salesForm = new Sales();
+        salesForm.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed

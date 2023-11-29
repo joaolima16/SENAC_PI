@@ -39,20 +39,20 @@ public class UserDAO {
 
         } catch (SQLException ex) {
             throw new Error(ex);
-        } 
+        }
     }
 
     ;
     public User findUser(String cpf) {
         PreparedStatement stmt = null;
         User _user = new User();
-     
+
         try {
             String sql = "SELECT * FROM cliente WHERE cpf=?";
             stmt = ConnectionDB.connDB().prepareStatement(sql);
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
-            
+
             if (rs.next()) {
                 _user.setId(rs.getInt(1));
                 _user.setNome(rs.getString(2));
@@ -69,7 +69,7 @@ public class UserDAO {
                 _user.setNumero(rs.getString(13));
                 return _user;
             }
-            
+
             return null;
         } catch (SQLException ex) {
             throw new Error(ex.getMessage());
@@ -102,7 +102,7 @@ public class UserDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
-        } 
+        }
     }
 
     public List<User> findUsers() {
@@ -112,7 +112,7 @@ public class UserDAO {
             String sql = "SELECT id,nome,cpf,email,telefone,dataNascimento FROM cliente";
             stmt = ConnectionDB.connDB().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 User _user = new User();
                 _user.setId(rs.getInt(1));
                 _user.setNome(rs.getString(2));
@@ -121,13 +121,13 @@ public class UserDAO {
                 _user.setTelefone(rs.getString(5));
                 _user.setDataNascimento(rs.getDate(6));
                 lsUsers.add(_user);
-            } 
+            }
             return lsUsers;
 
         } catch (SQLException ex) {
             throw new Error(ex);
         }
-       
+
     }
 
     public String loginUser(String email, String password) {
@@ -145,7 +145,7 @@ public class UserDAO {
         } catch (SQLException ex) {
             throw new Error(ex);
         }
-       
+
     }
 
     public boolean deleteUser(String cpf) {
@@ -162,7 +162,8 @@ public class UserDAO {
         }
     }
 
-    public ResultSet findUsersForNameOrCpf(String value) {
+    public List<User> findUsersForNameOrCpf(String value) {
+        List<User> lsUsers = new ArrayList<User>();
         try {
             ResultSet rs;
             String sql = "SELECT id,nome,cpf,email,telefone,dataNascimento FROM cliente WHERE nome LIKE ? OR cpf LIKE ?";
@@ -170,7 +171,18 @@ public class UserDAO {
             stmt.setString(1, "%" + value + "%");
             stmt.setString(2, "%" + value + "%");
             rs = stmt.executeQuery();
-            return rs;
+            while (rs.next()) {
+                User _user = new User();
+                _user.setId(rs.getInt(1));
+                _user.setNome(rs.getString(2));
+                _user.setCpf(rs.getString(3));
+                _user.setEmail(rs.getString(4));
+                _user.setTelefone(rs.getString(5));
+                _user.setDataNascimento(rs.getDate(6));
+                lsUsers.add(_user);
+                
+            }
+         return lsUsers;
         } catch (SQLException ex) {
             throw new Error(ex);
         }

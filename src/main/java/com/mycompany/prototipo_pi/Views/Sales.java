@@ -64,7 +64,7 @@ public class Sales extends javax.swing.JFrame {
         JbProduct = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        JlSale = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
@@ -321,11 +321,16 @@ public class Sales extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel13.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Relatório");
-        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        JlSale.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
+        JlSale.setForeground(new java.awt.Color(255, 255, 255));
+        JlSale.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        JlSale.setText("Relatório");
+        JlSale.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        JlSale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JlSaleMouseClicked(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -357,7 +362,7 @@ public class Sales extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JlSale, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -365,7 +370,7 @@ public class Sales extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JlSale, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15))
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
@@ -440,24 +445,24 @@ public class Sales extends javax.swing.JFrame {
 
     private void JbtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnAdicionarActionPerformed
         String id = String.valueOf(product.getId());
-        String nomeProduto = product.getNomeProduto();
-        String quantidade = String.valueOf(JsQtd.getValue().toString());
-        String precoTotal = String.valueOf(JtPrice.getText());
-        String tamanho = String.valueOf(product.getTamanho());
-        DefaultTableModel modelo = (DefaultTableModel) JtProdutos.getModel();
+        String nameProduct = product.getNomeProduto();
+        String qtd = String.valueOf(JsQtd.getValue().toString());
+        String totalPrice = String.valueOf(JtPrice.getText());
+        String size = String.valueOf(product.getTamanho());
+        DefaultTableModel model = (DefaultTableModel) JtProdutos.getModel();
 
-        modelo.addRow(new String[]{
+        model.addRow(new String[]{
             id,
-            nomeProduto,
-            quantidade,
-            precoTotal,
-            tamanho
+            nameProduct,
+            qtd,
+            totalPrice,
+            size
         });
-        Product _product = new Product(nomeProduto, Double.parseDouble(precoTotal), Integer.parseInt(tamanho), Integer.parseInt(quantidade));
+        Product _product = new Product(nameProduct, Double.parseDouble(totalPrice), Integer.parseInt(size), Integer.parseInt(qtd));
         _product.setId(Integer.parseInt(id));
 
         this.lsProducts.add(_product);
-        totalPriceSale += Double.valueOf(precoTotal);
+        totalPriceSale += Double.valueOf(totalPrice);
         calculateTotalValueSale();
         clearFields();
     }//GEN-LAST:event_JbtnAdicionarActionPerformed
@@ -482,7 +487,8 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void clearFields() {
-
+        JtfCpf.setText("");
+        
     }
     private void JtfCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCpfFocusLost
         User _user = _userDao.findUser(JtfCpf.getText().replaceAll("[^0-9]", ""));
@@ -496,6 +502,12 @@ public class Sales extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado");
         }
     }//GEN-LAST:event_JtfCpfFocusLost
+
+    private void JlSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlSaleMouseClicked
+       SyntheticReport report = new SyntheticReport();
+       report.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_JlSaleMouseClicked
     private boolean validarCampos() {
         if (JtfCpf.getText().replaceAll("[^0-9]", "").equals("") || JtfCep.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Para realizar uma venda preencha o CPF do cliente");
@@ -549,6 +561,7 @@ public class Sales extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JbProduct;
     private javax.swing.JButton JbtnAdicionar;
+    private javax.swing.JLabel JlSale;
     private javax.swing.JLabel JlValorTotal;
     private javax.swing.JLabel Jlestoque;
     private javax.swing.JSpinner JsQtd;
@@ -564,7 +577,6 @@ public class Sales extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

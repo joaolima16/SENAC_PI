@@ -9,16 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Clients extends javax.swing.JFrame {
-
+    
     userTableModel _userTableModel = new userTableModel();
     UserDAO _userDao = new UserDAO();
-
+    
     public Clients() {
         initComponents();
         jtUsuarios.setModel(_userTableModel);
         fillTable();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -33,7 +33,7 @@ public class Clients extends javax.swing.JFrame {
         jtUsuarios = new javax.swing.JTable();
         btnProduts = new javax.swing.JButton();
         btnVendas = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtnRelatorio = new javax.swing.JButton();
         jBtnAdd1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,15 +122,15 @@ public class Clients extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Relátorio");
-        jButton3.setBorder(null);
-        jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRelatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jBtnRelatorio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jBtnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnRelatorio.setText("Relátorio");
+        jBtnRelatorio.setBorder(null);
+        jBtnRelatorio.setBorderPainted(false);
+        jBtnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBtnRelatorioActionPerformed(evt);
             }
         });
 
@@ -157,7 +157,7 @@ public class Clients extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(btnVendas)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton3)
+                        .addComponent(jBtnRelatorio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -185,7 +185,7 @@ public class Clients extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnProduts)
                         .addComponent(btnVendas)
-                        .addComponent(jButton3)))
+                        .addComponent(jBtnRelatorio)))
                 .addGap(40, 40, 40)
                 .addComponent(jBtnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -214,10 +214,11 @@ public class Clients extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (User user : lsUsers) {
             _userTableModel.addRow(user);
-
+            
         }
     }
     private void jBtnExcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcActionPerformed
+        
         if (jtUsuarios.getSelectedRow() != -1) {
             String cpf = _userTableModel.getValueAt(jtUsuarios.getSelectedRow(), 1).toString();
             _userTableModel.deleteRow(cpf, jtUsuarios.getSelectedRow());
@@ -232,7 +233,6 @@ public class Clients extends javax.swing.JFrame {
 
     private void jBtnAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAltActionPerformed
         String cpf = _userTableModel.getValueAt(jtUsuarios.getSelectedRow(), 1).toString();
-        System.out.println(cpf);
         Update updateUserForm = new Update(cpf);
         updateUserForm.setVisible(true);
         this.dispose();
@@ -241,13 +241,13 @@ public class Clients extends javax.swing.JFrame {
     private void btnProdutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutsActionPerformed
         Products productForm = new Products();
         productForm.setVisible(true);
-
+        
         this.dispose();
     }//GEN-LAST:event_btnProdutsActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        Sales vendasForm = new Sales();
-        vendasForm.setVisible(true);
+        Sales salesForm = new Sales();
+        salesForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
 
@@ -255,34 +255,27 @@ public class Clients extends javax.swing.JFrame {
         filterUsers();
     }//GEN-LAST:event_jBtnAdd1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jBtnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRelatorioActionPerformed
+        SyntheticReport report = new SyntheticReport();
+        report.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnRelatorioActionPerformed
     public void filterUsers() {
-        ResultSet rs = _userDao.findUsersForNameOrCpf(JtfBusca.getText());
+        List<User> lsUsers = _userDao.findUsersForNameOrCpf(JtfBusca.getText());
         clearTable();
-        try {
-            while (rs.next()) {
-                User _user = new User();
-                _user.setNome(rs.getString(2));
-                _user.setCpf(rs.getString(3));
-                _user.setEmail(rs.getString(4));
-                _user.setTelefone(rs.getString(5));
-                _user.setDataNascimento(rs.getDate(6));
-                _userTableModel.addRow(_user);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        for (User user : lsUsers) {
+            _userTableModel.addRow(user);
+            
         }
     }
-
+    
     private void clearTable() {
         int rowCount = _userTableModel.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             _userTableModel.removeRow(i);
         }
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -294,21 +287,21 @@ public class Clients extends javax.swing.JFrame {
                 if ("Windows classic".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Clients.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Clients.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Clients.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Clients.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -331,7 +324,7 @@ public class Clients extends javax.swing.JFrame {
     private javax.swing.JButton jBtnAdd1;
     private javax.swing.JButton jBtnAlt;
     private javax.swing.JButton jBtnExc;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jBtnRelatorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Register extends javax.swing.JFrame {
     
     private String gender;
-    private String estadoCivil;
+    private String civilState;
     UserDAO _userDao = new UserDAO();
     
     public Register() {
@@ -536,9 +536,9 @@ public class Register extends javax.swing.JFrame {
             gender = "F";
         }
         if (JtbSolt.isSelected()) {
-            estadoCivil = "solteiro";
+            civilState = "solteiro";
         } else {
-            estadoCivil = "casado";
+            civilState = "casado";
         }
     }
     
@@ -554,7 +554,7 @@ public class Register extends javax.swing.JFrame {
                     JtfBairro.getText(),
                     JtfLogra.getText(),
                     JtfCidade.getText(),
-                    estadoCivil);
+                    civilState);
             _userDao.addUser(_user);
         } catch (ParseException ex) {
             System.out.println(ex);

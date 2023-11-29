@@ -16,7 +16,7 @@ import javax.swing.text.PlainDocument;
 public class Products extends javax.swing.JFrame {
 
     Clients clients = new Clients();
-    Sales _venda = new Sales();
+    Sales _sale = new Sales();
     List<Product> lsProducts;
     ProductsDAO _productDao = new ProductsDAO();
     productTableModel _productTableModel = new productTableModel();
@@ -348,13 +348,13 @@ public class Products extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        boolean validacao = validarCampos();
-        if (validacao == true) {
-            int tamanho = Integer.parseInt(JcbTamanho.getSelectedItem().toString());
-            int estoque = Integer.parseInt(JtfEstoque.getText());
-            var produto = new Product(JtfNome.getText(), Double.parseDouble(JtfPreco.getText()), tamanho, estoque);
-            _productTableModel.addRow(produto);
-            registerProduct(produto);
+        boolean validation = validarCampos();
+        if (validation == true) {
+            int size = Integer.parseInt(JcbTamanho.getSelectedItem().toString());
+            int stock = Integer.parseInt(JtfEstoque.getText());
+            var product = new Product(JtfNome.getText(), Double.parseDouble(JtfPreco.getText()), size, stock);
+            _productTableModel.addRow(product);
+            registerProduct(product);
         }
     }//GEN-LAST:event_jbtAddActionPerformed
 
@@ -365,8 +365,8 @@ public class Products extends javax.swing.JFrame {
     private void JtfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtfNomeKeyTyped
         JTextField textField = (JTextField) evt.getSource();
         String text = textField.getText();
-        int limite = 20;
-        if (text.length() >= limite) {
+        int limit = 20;
+        if (text.length() >= limit) {
             evt.consume();
 
         }
@@ -399,20 +399,19 @@ public class Products extends javax.swing.JFrame {
         String text = textField.getText();
 
         try {
-            int valor = Integer.parseInt(text);
-            if (valor <= 0) {
+            int value = Integer.parseInt(text);
+            if (value <= 0) {
                 JOptionPane.showMessageDialog(this, "O valor não pode ser menor ou igual a 0.", "Erro", JOptionPane.ERROR_MESSAGE);
                 textField.setText("");
             }
         } catch (NumberFormatException ex) {
-
+            throw new Error(ex);
         }
     }//GEN-LAST:event_JtfEstoqueFocusLost
 
     private void JtfPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtfPrecoKeyTyped
         JTextField textField = (JTextField) evt.getSource();
         String text = textField.getText();
-        int limite = 15;
         if (text.length() >= 15) {
             evt.consume();
         }
@@ -450,7 +449,7 @@ public class Products extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        _venda.setVisible(true);
+        _sale.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
 
