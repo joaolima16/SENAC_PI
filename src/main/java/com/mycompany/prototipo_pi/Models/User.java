@@ -1,7 +1,10 @@
 package com.mycompany.prototipo_pi.Models;
 
 import java.util.Date;
-
+/**
+ * Classe responsável pelos atributos do usuário no sistema
+ * @author Grupo - Loja de calçados
+ */
 public class User {
     private int id;
 

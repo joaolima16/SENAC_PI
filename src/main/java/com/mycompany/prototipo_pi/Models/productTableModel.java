@@ -6,6 +6,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
+
+/**
+ * 
+ * @author João e Bruno
+ */
 public class productTableModel extends AbstractTableModel {
 
     private List<Product> products = new ArrayList<>();

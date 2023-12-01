@@ -1,7 +1,10 @@
 package com.mycompany.prototipo_pi.Models;
 
 import java.util.Date;
-
+/***
+ * Classe com os principais atributos e campos de vendas do sistema
+ * @author Grupo - Loja de calçados
+ */
 public class Sale {
 
     private int id_venda;

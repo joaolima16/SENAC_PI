@@ -7,12 +7,12 @@ import java.sql.SQLException;
 
 /**
  *
- * @author João Vitor
+ * @author Grupo - Loja de calçados
  */
 public class Prototipo_PI {
 
     public static void main(String[] args) throws SQLException {
-        ConnectionDB connTeste = new ConnectionDB();
-        connTeste.createTables();
+        ConnectionDB connDb = new ConnectionDB();
+        connDb.createTables();
     }
 }

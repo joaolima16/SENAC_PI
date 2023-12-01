@@ -9,8 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class UserDAO {
+/**
+ * Classe responsável pelos métodos e manipulação das ações do usuário no Banco de dados 
+ * @author Grupo - Loja de calçados
+ */
 
+public class UserDAO {
+    /**
+     * Método responsável por adicionar usuário na base de dados
+     * @param user
+     * @return user
+     */
     public User addUser(User user) {
         PreparedStatement pstmt = null;
         try {
@@ -43,6 +52,11 @@ public class UserDAO {
     }
 
     ;
+    /**
+     * Método responsável por buscar usuário pelo CPF
+     * @param cpf
+     * @return _user
+     */
     public User findUser(String cpf) {
         PreparedStatement stmt = null;
         User _user = new User();
@@ -75,7 +89,12 @@ public class UserDAO {
             throw new Error(ex.getMessage());
         }
     }
-
+    /**
+     * Método responsável por atualizar dados do usuário com base no CPF
+     * @param user
+     * @param cpf
+     * @return boolean, true: Usuário atualizado com sucesso, false: Ocorreu um erro ao atualizar o usuário
+     */
     public boolean updateUser(User user, String cpf) {
         PreparedStatement stmt = null;
         try {
@@ -104,7 +123,10 @@ public class UserDAO {
             return false;
         }
     }
-
+    /**
+     * Método responsável por buscar todos os usuários cadastrados na base de dados
+     * @return lsUsers 
+     */
     public List<User> findUsers() {
         PreparedStatement stmt = null;
         List<User> lsUsers = new ArrayList<>();
@@ -129,7 +151,12 @@ public class UserDAO {
         }
 
     }
-
+    /**
+     * 
+     * @param email
+     * @param password
+     * @return 
+     */
     public String loginUser(String email, String password) {
         PreparedStatement stmt = null;
         try {
@@ -147,7 +174,11 @@ public class UserDAO {
         }
 
     }
-
+    /**
+     * Método responsável por deletar usuário da base de dados com base no seu CPF
+     * @param cpf
+     * @return boolean, true: Usuário deletado, false: Ocorreu um erro ao deletar o usuário
+     */
     public boolean deleteUser(String cpf) {
         try {
             String sql = "DELETE FROM cliente WHERE cpf = ? ";
@@ -161,7 +192,11 @@ public class UserDAO {
             return false;
         }
     }
-
+    /**
+     * Método para retornar usuários com base no nome ou cpf
+     * @param value
+     * @return 
+     */
     public List<User> findUsersForNameOrCpf(String value) {
         List<User> lsUsers = new ArrayList<User>();
         try {

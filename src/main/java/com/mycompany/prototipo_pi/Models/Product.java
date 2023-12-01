@@ -1,5 +1,9 @@
 package com.mycompany.prototipo_pi.Models;
-
+/**
+ * 
+ * @author Grupo - Loja de calçaods
+ * Classe com os principais atributos dos produtos
+ */
 public class Product {
 
     private int id;
@@ -12,6 +16,13 @@ public class Product {
     
     
     }
+    /**
+     * Construtor responsável por atribuir os valores as variáveis 
+     * @param nomeProduto
+     * @param preco
+     * @param tamanho
+     * @param estoque 
+     */
     public Product(String nomeProduto, double preco, int tamanho, int estoque) {
         this.nomeProduto = nomeProduto;
         this.preco = preco;

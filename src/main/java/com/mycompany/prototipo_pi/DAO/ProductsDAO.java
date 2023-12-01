@@ -9,8 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class ProductsDAO {
 
+/**
+ * 
+ * @author Grupo - Loja de calçados
+ * Classe com métodos e funções para manipulação dos produtos do sistema
+ * @version 1.2
+ */
+public class ProductsDAO {
+    /**
+     * Método responsável por adicionar produto ao banco de dados
+     * @param product
+     * @return product 
+     */
+    
     public Product insertProduct(Product product) {
         PreparedStatement stmt = null;
         try {
@@ -35,7 +47,12 @@ public class ProductsDAO {
             }
         }
     }
-
+    
+    /**
+     * Método responsável por resgatar produto pelo Id
+     * @param id
+     * @return _product
+     */
     public Product getProduct(int id) {
         PreparedStatement stmt = null;
         ResultSet rs;
@@ -64,7 +81,11 @@ public class ProductsDAO {
             }
         }
     }
-
+    /** 
+     * Método responsável por retornar uma lista com todos os produtos cadastrados
+     * @return lsProducts
+     * 
+     */
     public List<Product> getProducts() {
         ResultSet rs;
         List<Product> lsProducts = new ArrayList<>();
@@ -90,7 +111,11 @@ public class ProductsDAO {
             }
         }
     }
-
+    /**
+     * Método responsável por atualizar produto na base de dados
+     * @param product 
+     * 
+     */
     public void updateProduct(Product product) {
         PreparedStatement stmt = null;
         try {
@@ -114,7 +139,11 @@ public class ProductsDAO {
             }
         }
     }
-
+    /**
+     * Método responsável por deletar produto da base de dados
+     * @param id
+     * @return boolean true: Produto deletado, Falha: Erro
+     */
     public boolean deleteProduct(int id) {
         PreparedStatement stmt = null;
         try {
@@ -135,7 +164,11 @@ public class ProductsDAO {
             }
         }
     }
-
+    /**
+     * Método para buscar produtos pelo nome 
+     * @param name
+     * @return lsProducts
+     */
     public List<Product> findProductsByName(String name) {
         PreparedStatement stmt = null;
         List<Product> lsProducts = new ArrayList<Product>();
@@ -161,7 +194,11 @@ public class ProductsDAO {
             }
         }
     }
-
+    /**
+     * Método para atualizar estoque dos produtos na base da dados
+     * @param lsProducts
+     * @return boolean true: Produto atualizado com sucesso, Falha: Erro ao atualizar produto
+     */
     public boolean updateStock(List<Product> lsProducts) {
         for (Product product : lsProducts) {
             Product _product = getProduct(product.getId());
